@@ -2,180 +2,286 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cổng quà VIP</title>
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+    font-family:'Segoe UI';
+    color:white;
+    text-align:center;
+    overflow:hidden;
+
+    background:linear-gradient(270deg,#000,#001a1a,#000033,#000);
+    background-size:600% 600%;
+    animation:bg 12s ease infinite;
 }
 
-body {
-    background: radial-gradient(circle at top, #0a0a0a, #000);
-    color: white;
-    font-family: 'Segoe UI', sans-serif;
-    text-align: center;
-    overflow: hidden;
+@keyframes bg{
+    0%{background-position:0%}
+    50%{background-position:100%}
+    100%{background-position:0%}
 }
 
 /* container */
-.container {
-    margin-top: 80px;
-    animation: fadeIn 1s ease;
+.container{
+    position:relative;
+    z-index:2;
+    margin-top:60px;
+    padding:0 10px;
 }
 
 /* icon */
-.icon {
-    font-size: 60px;
-    animation: float 2s infinite ease-in-out;
+.icon{
+    font-size:60px;
+    animation:float 2s infinite;
+    text-shadow:0 0 20px gold;
 }
 
 /* title */
-.title {
-    font-size: 28px;
-    font-weight: 600;
-    margin-top: 10px;
+.title{
+    font-size:26px;
+    font-weight:700;
+    margin-top:10px;
+    text-shadow:0 0 10px #00ffff;
 }
 
-.title span {
-    color: #ff3b3b;
+.title span{color:#ff3b3b}
+
+/* ===== LOG MƯỢT ===== */
+.log{
+    margin:25px auto;
+    width:340px;
+    max-width:95%;
+    height:150px;
+    overflow:hidden;
+    border-radius:12px;
+    background:rgba(0,0,0,0.4);
+    border:1px solid rgba(0,255,255,0.3);
+    position:relative;
 }
 
-/* log box */
-.log {
-    margin: 25px auto;
-    width: 320px;
-    height: 90px;
-    border-radius: 12px;
-    border: 1px solid rgba(255,255,255,0.1);
-    backdrop-filter: blur(10px);
-    padding: 10px;
-    font-size: 14px;
-    overflow: hidden;
+.log-track{
+    position:absolute;
+    width:100%;
+    animation:scrollUp 40s linear infinite;
 }
 
-/* log item */
-.log div {
-    animation: slideUp 0.5s ease;
-    color: #00ffcc;
+.log-item{
+    display:flex;
+    justify-content:space-between;
+    padding:10px;
+    border-bottom:1px dashed rgba(255,255,255,0.1);
 }
 
-/* checkbox */
-.check {
-    margin-top: 20px;
-    font-size: 14px;
+.left{
+    display:flex;
+    gap:10px;
+    align-items:center;
+}
+
+.avatar{
+    width:32px;height:32px;border-radius:50%;
+}
+
+/* text */
+.name{color:#00ccff;font-size:13px}
+.action{color:#00ff99;font-size:13px}
+.time{color:#aaa;font-size:12px}
+
+/* scroll animation */
+@keyframes scrollUp{
+    0%{transform:translateY(0)}
+    100%{transform:translateY(-50%)}
+}
+
+/* ===== CHECKBOX ===== */
+.checkbox{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    margin-top:20px;
+    cursor:pointer;
+    padding:10px;
+}
+
+.checkbox input{display:none;}
+
+.checkmark{
+    width:26px;height:26px;
+    border-radius:8px;
+    border:2px solid #00c6ff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.checkmark::after{
+    content:"✔";
+    opacity:0;
+}
+
+.checkbox input:checked + .checkmark{
+    background:linear-gradient(90deg,#00c6ff,#0072ff);
+    box-shadow:0 0 10px #00c6ff;
+}
+
+.checkbox input:checked + .checkmark::after{
+    opacity:1;
 }
 
 /* button */
-button {
-    margin-top: 20px;
-    width: 320px;
-    padding: 15px;
-    border-radius: 50px;
-    border: none;
-    font-size: 18px;
-    background: #222;
-    color: #666;
-    cursor: not-allowed;
-    transition: all 0.3s ease;
+button{
+    margin-top:20px;
+    width:320px;
+    max-width:100%;
+    padding:15px;
+    border-radius:50px;
+    border:none;
+    font-size:18px;
+    background:#111;
+    color:#555;
+    cursor:not-allowed;
 }
 
-/* active */
-button.active {
-    background: linear-gradient(90deg, #1e90ff, #00c6ff);
-    color: white;
-    cursor: pointer;
-    box-shadow: 0 0 20px rgba(0,198,255,0.6);
+button.active{
+    background:linear-gradient(90deg,#00c6ff,#0072ff);
+    color:white;
+    box-shadow:0 0 20px #00c6ff;
+    cursor:pointer;
 }
 
-/* hover */
-button.active:hover {
-    transform: scale(1.05);
+/* ===== PARTICLES ===== */
+.particle{
+    position:absolute;
+    width:3px;height:3px;
+    background:#00ffff;
+    box-shadow:0 0 10px #00ffff;
+    animation:move linear infinite;
 }
 
-/* footer */
-.footer {
-    margin-top: 20px;
-    font-size: 12px;
-    color: #777;
+@keyframes move{
+    from{transform:translateY(100vh)}
+    to{transform:translateY(-10vh)}
 }
 
-/* animations */
-@keyframes float {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+/* ===== GIFTS ===== */
+.gift{
+    position:absolute;
+    font-size:26px;
+    animation:fly linear infinite;
 }
 
-@keyframes slideUp {
-    from { transform: translateY(20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+@keyframes fly{
+    from{transform:translateY(100vh)}
+    to{transform:translateY(-10vh)}
 }
 
-@keyframes fadeIn {
-    from { opacity: 0 }
-    to { opacity: 1 }
+/* ===== MOBILE ===== */
+@media(max-width:480px){
+    .title{font-size:22px}
+    .icon{font-size:45px}
 }
 </style>
 </head>
 
 <body>
 
+<div id="particles"></div>
+<div id="gifts"></div>
+
 <div class="container">
     <div class="icon">🎁</div>
 
     <div class="title">
-        CHÀO MỪNG ĐẾN VỚI <br>
-        <span>CỔNG QUÀ TẶNG VIP</span>
+        CHÀO MỪNG ĐẾN <br>
+        <span>CỔNG QUÀ VIP</span>
     </div>
 
-    <div class="log" id="log"></div>
+    <!-- LOG -->
+    <div class="log">
+        <div class="log-track" id="logTrack"></div>
+    </div>
 
-    <div class="check">
+    <!-- CHECKBOX -->
+    <label class="checkbox">
         <input type="checkbox" id="agree">
-        Tôi xác nhận đủ 18 tuổi và đồng ý nhận khuyến mãi
-    </div>
+        <span class="checkmark"></span>
+        Tôi xác nhận đủ 18 tuổi
+    </label>
 
     <button id="btn">ĐĂNG KÝ NGAY</button>
-
-    <div class="footer">© 2026 Gift Center. Bảo mật tuyệt đối.</div>
 </div>
 
 <script>
-const checkbox = document.getElementById("agree");
-const btn = document.getElementById("btn");
+const btn=document.getElementById("btn");
+const checkbox=document.getElementById("agree");
 
-checkbox.addEventListener("change", () => {
-    btn.classList.toggle("active", checkbox.checked);
-});
-
-btn.onclick = () => {
-    if (!checkbox.checked) return;
-    btn.innerText = "ĐANG XỬ LÝ...";
-    btn.style.opacity = "0.7";
-
-    setTimeout(() => {
-        window.location.href = "loading.html";
-    }, 800);
+checkbox.onchange=()=>{
+    btn.classList.toggle("active",checkbox.checked);
 };
 
-/* fake realtime log */
-const log = document.getElementById("log");
-const actions = ["vừa thắng lớn", "rút 1TR", "nạp thành công", "trúng thưởng"];
+btn.onclick=()=>{
+    if(!checkbox.checked)return;
+    btn.innerText="ĐANG XỬ LÝ...";
+    setTimeout(()=>location.href="loading.html",800);
+};
 
-setInterval(() => {
-    const name = "user" + Math.floor(Math.random()*9999);
-    const action = actions[Math.floor(Math.random()*actions.length)];
+/* ===== LOG MƯỢT ===== */
+const logTrack=document.getElementById("logTrack");
 
-    const div = document.createElement("div");
-    div.innerText = name + " " + action;
+const actions=["Thắng lớn","Rút 1Tr","Nạp 500K","Trúng VIP"];
 
-    log.prepend(div);
+function avatar(){
+    return "https://i.pravatar.cc/150?img="+Math.floor(Math.random()*70);
+}
 
-    if (log.children.length > 5) {
-        log.removeChild(log.lastChild);
-    }
-}, 1200);
+function createItem(){
+    return `
+    <div class="log-item">
+        <div class="left">
+            <img class="avatar" src="${avatar()}"/>
+            <div>
+                <div class="name">user${Math.floor(Math.random()*9999)}</div>
+                <div class="action">${actions[Math.floor(Math.random()*actions.length)]}</div>
+            </div>
+        </div>
+        <div class="time">${Math.floor(Math.random()*3+1)}p</div>
+    </div>
+    `;
+}
+
+let html="";
+for(let i=0;i<20;i++){
+    html+=createItem();
+}
+logTrack.innerHTML=html+html;
+
+/* PARTICLES */
+const p=document.getElementById("particles");
+setInterval(()=>{
+    const dot=document.createElement("div");
+    dot.className="particle";
+    dot.style.left=Math.random()*100+"%";
+    dot.style.animationDuration=(3+Math.random()*5)+"s";
+    p.appendChild(dot);
+    setTimeout(()=>dot.remove(),8000);
+},100);
+
+/* GIFTS */
+const g=document.getElementById("gifts");
+setInterval(()=>{
+    const gift=document.createElement("div");
+    gift.className="gift";
+    gift.innerHTML="🎁";
+    gift.style.left=Math.random()*100+"%";
+    gift.style.animationDuration=(4+Math.random()*4)+"s";
+    g.appendChild(gift);
+    setTimeout(()=>gift.remove(),8000);
+},400);
 </script>
 
 </body>
