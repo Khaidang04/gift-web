@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Cổng quà VIP</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: radial-gradient(circle at top, #0a0a0a, #000);
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    text-align: center;
+    overflow: hidden;
+}
+
+/* container */
+.container {
+    margin-top: 80px;
+    animation: fadeIn 1s ease;
+}
+
+/* icon */
+.icon {
+    font-size: 60px;
+    animation: float 2s infinite ease-in-out;
+}
+
+/* title */
+.title {
+    font-size: 28px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.title span {
+    color: #ff3b3b;
+}
+
+/* log box */
+.log {
+    margin: 25px auto;
+    width: 320px;
+    height: 90px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    padding: 10px;
+    font-size: 14px;
+    overflow: hidden;
+}
+
+/* log item */
+.log div {
+    animation: slideUp 0.5s ease;
+    color: #00ffcc;
+}
+
+/* checkbox */
+.check {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+/* button */
+button {
+    margin-top: 20px;
+    width: 320px;
+    padding: 15px;
+    border-radius: 50px;
+    border: none;
+    font-size: 18px;
+    background: #222;
+    color: #666;
+    cursor: not-allowed;
+    transition: all 0.3s ease;
+}
+
+/* active */
+button.active {
+    background: linear-gradient(90deg, #1e90ff, #00c6ff);
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(0,198,255,0.6);
+}
+
+/* hover */
+button.active:hover {
+    transform: scale(1.05);
+}
+
+/* footer */
+.footer {
+    margin-top: 20px;
+    font-size: 12px;
+    color: #777;
+}
+
+/* animations */
+@keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0 }
+    to { opacity: 1 }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="icon">🎁</div>
+
+    <div class="title">
+        CHÀO MỪNG ĐẾN VỚI <br>
+        <span>CỔNG QUÀ TẶNG VIP</span>
+    </div>
+
+    <div class="log" id="log"></div>
+
+    <div class="check">
+        <input type="checkbox" id="agree">
+        Tôi xác nhận đủ 18 tuổi và đồng ý nhận khuyến mãi
+    </div>
+
+    <button id="btn">ĐĂNG KÝ NGAY</button>
+
+    <div class="footer">© 2026 Gift Center. Bảo mật tuyệt đối.</div>
+</div>
+
+<script>
+const checkbox = document.getElementById("agree");
+const btn = document.getElementById("btn");
+
+checkbox.addEventListener("change", () => {
+    btn.classList.toggle("active", checkbox.checked);
+});
+
+btn.onclick = () => {
+    if (!checkbox.checked) return;
+    btn.innerText = "ĐANG XỬ LÝ...";
+    btn.style.opacity = "0.7";
+
+    setTimeout(() => {
+        window.location.href = "loading.html";
+    }, 800);
+};
+
+/* fake realtime log */
+const log = document.getElementById("log");
+const actions = ["vừa thắng lớn", "rút 1TR", "nạp thành công", "trúng thưởng"];
+
+setInterval(() => {
+    const name = "user" + Math.floor(Math.random()*9999);
+    const action = actions[Math.floor(Math.random()*actions.length)];
+
+    const div = document.createElement("div");
+    div.innerText = name + " " + action;
+
+    log.prepend(div);
+
+    if (log.children.length > 5) {
+        log.removeChild(log.lastChild);
+    }
+}, 1200);
+</script>
+
+</body>
+</html>

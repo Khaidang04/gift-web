@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Đang xử lý</title>
+
+<style>
+body {
+    background: radial-gradient(circle, #0a0a0a, #000);
+    color: white;
+    text-align: center;
+    font-family: 'Segoe UI';
+}
+
+/* container */
+.box {
+    margin-top: 100px;
+    animation: fadeIn 1s ease;
+}
+
+/* badge */
+.badge {
+    background: linear-gradient(90deg, #1e90ff, #00c6ff);
+    padding: 8px 15px;
+    border-radius: 20px;
+    display: inline-block;
+}
+
+/* title */
+h1 span {
+    color: #00c6ff;
+}
+
+/* card */
+.card {
+    margin: 20px auto;
+    width: 320px;
+    padding: 20px;
+    border-radius: 15px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    text-align: left;
+}
+
+.card span {
+    color: #00c6ff;
+}
+
+/* progress */
+.progress-bar {
+    width: 320px;
+    height: 12px;
+    background: #222;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 20px auto;
+}
+
+.progress {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #00ffcc, lime);
+    transition: width 0.1s linear;
+}
+
+/* text */
+.success {
+    color: #00ffcc;
+}
+
+/* animation */
+@keyframes fadeIn {
+    from { opacity: 0 }
+    to { opacity: 1 }
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+    <div class="badge">ƯU ĐÃI HỘI VIÊN MỚI</div>
+
+    <h1>Xác nhận nhận <span>thưởng</span></h1>
+
+    <p>Hệ thống đang kiểm tra điều kiện...</p>
+
+    <div class="card">
+        • Thưởng Đăng Ký <span>+58</span><br><br>
+        • Thưởng <span>150%</span> điểm nộp đầu<br><br>
+        • Gửi <span>99</span> nhận <span>267</span>
+    </div>
+
+    <input type="checkbox" id="confirm"> Xác nhận kích hoạt
+
+    <div class="success" id="text"></div>
+
+    <div class="progress-bar">
+        <div class="progress" id="bar"></div>
+    </div>
+</div>
+
+<script>
+const confirm = document.getElementById("confirm");
+const bar = document.getElementById("bar");
+const text = document.getElementById("text");
+
+confirm.addEventListener("change", () => {
+    if (!confirm.checked) return;
+
+    let progress = 0;
+
+    text.innerHTML = "✔ Đã kích hoạt - đang xử lý...";
+
+    const run = () => {
+        progress += Math.random() * 5;
+        if (progress > 100) progress = 100;
+
+        bar.style.width = progress + "%";
+
+        if (progress < 100) {
+            requestAnimationFrame(run);
+        } else {
+            text.innerHTML = "✔ Hoàn tất - đang chuyển...";
+            setTimeout(() => {
+                window.location.href = "https://hi1966.com/Register?f=7408640&fbPixelId=846101525116835&fbAccessToken=EAALLud05s1kBQwSGVmytKlC3pPDQ7AbIsjn4QaPG7MTRcIeHGT1L27trDG13qdVfQSDshETQUKDpXRKwztxWuqxFuhDes0JA1ZBJMxuZComGneHvDVQ0pnJlZABTYaZABga1AywJ8NlQu1HtULrcPsRZAtOKuJU1qAwCf8ViTErz44ikQ1lyz6U2bZAJIigyCdZAQZDZD%2F";
+            }, 1000);
+        }
+    };
+
+    run();
+});
+</script>
+
+</body>
+</html>
