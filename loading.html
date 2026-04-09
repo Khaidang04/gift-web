@@ -2,81 +2,164 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Đang xử lý</title>
 
 <style>
-body {
-    background: radial-gradient(circle, #0a0a0a, #000);
-    color: white;
-    text-align: center;
-    font-family: 'Segoe UI';
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+    font-family:'Segoe UI';
+    color:white;
+    text-align:center;
+    overflow:hidden;
+
+    background:linear-gradient(270deg,#000,#001a1a,#000033,#000);
+    background-size:600% 600%;
+    animation:bg 12s ease infinite;
 }
 
-/* container */
-.box {
-    margin-top: 100px;
-    animation: fadeIn 1s ease;
+@keyframes bg{
+    0%{background-position:0%}
+    50%{background-position:100%}
+    100%{background-position:0%}
+}
+
+.box{
+    margin-top:80px;
+    padding:0 10px;
 }
 
 /* badge */
-.badge {
-    background: linear-gradient(90deg, #1e90ff, #00c6ff);
-    padding: 8px 15px;
-    border-radius: 20px;
-    display: inline-block;
+.badge{
+    background:linear-gradient(90deg,#00c6ff,#0072ff);
+    padding:8px 15px;
+    border-radius:20px;
+    display:inline-block;
+    box-shadow:0 0 10px #00c6ff;
 }
 
 /* title */
-h1 span {
-    color: #00c6ff;
+h1{
+    margin-top:10px;
+}
+h1 span{
+    color:#00c6ff;
 }
 
 /* card */
-.card {
-    margin: 20px auto;
-    width: 320px;
-    padding: 20px;
-    border-radius: 15px;
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(10px);
-    text-align: left;
+.card{
+    margin:20px auto;
+    max-width:330px;
+    padding:20px;
+    border-radius:15px;
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(10px);
+    text-align:left;
+    border:1px solid rgba(0,255,255,0.2);
 }
 
-.card span {
-    color: #00c6ff;
+/* text highlight */
+.card span{
+    color:#00ffcc;
+}
+
+/* checkbox đẹp */
+.checkbox{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    margin-top:15px;
+    cursor:pointer;
+}
+
+.checkbox input{display:none;}
+
+.checkmark{
+    width:26px;height:26px;
+    border:2px solid #00c6ff;
+    border-radius:8px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.checkmark::after{
+    content:"✔";
+    opacity:0;
+}
+
+.checkbox input:checked + .checkmark{
+    background:linear-gradient(90deg,#00c6ff,#0072ff);
+}
+
+.checkbox input:checked + .checkmark::after{
+    opacity:1;
 }
 
 /* progress */
-.progress-bar {
-    width: 320px;
-    height: 12px;
-    background: #222;
-    border-radius: 10px;
-    overflow: hidden;
-    margin: 20px auto;
+.progress-bar{
+    width:90%;
+    max-width:330px;
+    height:12px;
+    background:#111;
+    border-radius:10px;
+    overflow:hidden;
+    margin:20px auto;
 }
 
-.progress {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, #00ffcc, lime);
-    transition: width 0.1s linear;
+.progress{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,#00ffcc,#00c6ff);
+    transition:.1s linear;
 }
 
-/* text */
-.success {
-    color: #00ffcc;
+/* status */
+.status{
+    color:#00ffcc;
+    margin-top:10px;
+    min-height:20px;
 }
 
-/* animation */
-@keyframes fadeIn {
-    from { opacity: 0 }
-    to { opacity: 1 }
+/* particles */
+.particle{
+    position:absolute;
+    width:3px;height:3px;
+    background:#00ffff;
+    box-shadow:0 0 10px #00ffff;
+    animation:move linear infinite;
+}
+
+@keyframes move{
+    from{transform:translateY(100vh)}
+    to{transform:translateY(-10vh)}
+}
+
+/* gift */
+.gift{
+    position:absolute;
+    font-size:24px;
+    animation:fly linear infinite;
+}
+
+@keyframes fly{
+    from{transform:translateY(100vh)}
+    to{transform:translateY(-10vh)}
+}
+
+/* mobile */
+@media(max-width:480px){
+    h1{font-size:20px}
 }
 </style>
 </head>
 
 <body>
+
+<div id="particles"></div>
+<div id="gifts"></div>
 
 <div class="box">
     <div class="badge">ƯU ĐÃI HỘI VIÊN MỚI</div>
@@ -86,14 +169,18 @@ h1 span {
     <p>Hệ thống đang kiểm tra điều kiện...</p>
 
     <div class="card">
-        • Thưởng Đăng Ký <span>+58</span><br><br>
-        • Thưởng <span>150%</span> điểm nộp đầu<br><br>
-        • Gửi <span>99</span> nhận <span>267</span>
+        • THƯỞNG ĐĂNG KÍ <span>+68K</span><br><br>
+        • THƯỞNG <span>200%</span> NẠP ĐẦU<br><br>
+        • NẠP <span>100K</span> NHẬN <span>288K</span>
     </div>
 
-    <input type="checkbox" id="confirm"> Xác nhận kích hoạt
+    <label class="checkbox">
+        <input type="checkbox" id="confirm">
+        <span class="checkmark"></span>
+        Xác nhận kích hoạt
+    </label>
 
-    <div class="success" id="text"></div>
+    <div class="status" id="status"></div>
 
     <div class="progress-bar">
         <div class="progress" id="bar"></div>
@@ -101,35 +188,74 @@ h1 span {
 </div>
 
 <script>
-const confirm = document.getElementById("confirm");
-const bar = document.getElementById("bar");
-const text = document.getElementById("text");
+const confirm=document.getElementById("confirm");
+const bar=document.getElementById("bar");
+const status=document.getElementById("status");
 
-confirm.addEventListener("change", () => {
-    if (!confirm.checked) return;
+const steps=[
+    "🔍 Đang kiểm tra địa chỉ IP...",
+    "🛡️ Xác minh bảo mật thiết bị...",
+    "📡 Kết nối máy chủ hệ thống...",
+    "🔎 Phân tích điều kiện nhận thưởng...",
+    "✅ IP SẠCH - ĐỦ ĐIỀU KIỆN NHẬN KHUYẾN MÃI"
+];
 
-    let progress = 0;
+confirm.onchange=()=>{
+    if(!confirm.checked)return;
 
-    text.innerHTML = "✔ Đã kích hoạt - đang xử lý...";
+    let progress=0;
+    let step=0;
 
-    const run = () => {
-        progress += Math.random() * 5;
-        if (progress > 100) progress = 100;
+    const run=()=>{
+        progress+=0.4;
+        if(progress>100)progress=100;
 
-        bar.style.width = progress + "%";
+        bar.style.width=progress+"%";
 
-        if (progress < 100) {
-            requestAnimationFrame(run);
-        } else {
-            text.innerHTML = "✔ Hoàn tất - đang chuyển...";
-            setTimeout(() => {
-                window.location.href = "https://hi1966.com/Register?f=7408640&fbPixelId=846101525116835&fbAccessToken=EAALLud05s1kBQwSGVmytKlC3pPDQ7AbIsjn4QaPG7MTRcIeHGT1L27trDG13qdVfQSDshETQUKDpXRKwztxWuqxFuhDes0JA1ZBJMxuZComGneHvDVQ0pnJlZABTYaZABga1AywJ8NlQu1HtULrcPsRZAtOKuJU1qAwCf8ViTErz44ikQ1lyz6U2bZAJIigyCdZAQZDZD%2F";
-            }, 1000);
+        if(progress>step*25 && step<steps.length){
+            if(step === steps.length - 1){
+    status.innerHTML = "<span style='color:#00ffcc;font-weight:bold;font-size:16px'>✔ IP SẠCH - ĐỦ ĐIỀU KIỆN NHẬN KHUYẾN MÃI</span>";
+}else{
+    status.innerHTML = steps[step];
+}
+            step++;
         }
-    };
+
+        if(progress<100){
+            requestAnimationFrame(run);
+        }else{
+            status.innerHTML="🚀 HOÀN TẤT - ĐANG CHUYỂN...";
+           setTimeout(()=>{
+    window.location.href="https://hi1966.com/Register?f=7408640";
+},2000);
+        }
+    }
 
     run();
-});
+};
+
+/* particles */
+const p=document.getElementById("particles");
+setInterval(()=>{
+    const dot=document.createElement("div");
+    dot.className="particle";
+    dot.style.left=Math.random()*100+"%";
+    dot.style.animationDuration=(3+Math.random()*5)+"s";
+    p.appendChild(dot);
+    setTimeout(()=>dot.remove(),8000);
+},120);
+
+/* gifts */
+const g=document.getElementById("gifts");
+setInterval(()=>{
+    const gift=document.createElement("div");
+    gift.className="gift";
+    gift.innerHTML="🎁";
+    gift.style.left=Math.random()*100+"%";
+    gift.style.animationDuration=(5+Math.random()*5)+"s";
+    g.appendChild(gift);
+    setTimeout(()=>gift.remove(),8000);
+},600);
 </script>
 
 </body>
